@@ -11,7 +11,7 @@ router.get('/', (req, res)=> {
     });
 });
 
-router.get('/json', (req, res)=>{
+router.get('/test', (req, res)=>{
     res.json({
         'path':'json',
         'author':'Lovedeep'
