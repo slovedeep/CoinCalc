@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ਗੋਲਕ-ਸੇਵਾ</title>
+
+    <script src="../scripts/coinCalculator.js"></script>
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <header>
+        <img src="../img/Khanda.png" alt="khanda logo" class="logoLeft" id="logo">
+        <img src="../img/Khanda.png" alt="khanda logo" class="logoRight" id="logo">
+        <h1 class="title">ਗੋਲਕ-ਸੇਵਾ</h1>
+    </header>
+    <section>
+        <div class=" grid-container coinSelection">
+            <label for="coins" id="selectCoins">Select Coin / ਸਿੱਕਾ ਚੁਣੋ</label>
+            <select name="coins" id="selectCoin" onchange="updatePlaceholder()">
+                <option value="1">1cnt</option>
+                <option value="2">2cnt</option>
+                <option value="5">5cnt</option>
+                <option value="10">10cnt</option>
+                <option value="20">20cnt</option>
+                <option value="50">50cnt</option>
+                <option value="100">1€</option>
+                <option value="200">2€</option>
+            </select>
+        </div>
+        <div class="grid-container">
+            <label for="totalValue" id="totalValueLbl">Total Value / ਰਕਮ</label>
+            <div class="grid-container2">
+                <input type="text" id="totalValue" name="totalValue" placeholder="99999">
+                <span>€</span>    
+            </div>
+        </div>
+    </section>
+    <button onclick="CalculateGrams()">Calculate / ਕਲਕੋਲੇਟ</button>
+    <p id="total"></p>
+</body>
+</html>

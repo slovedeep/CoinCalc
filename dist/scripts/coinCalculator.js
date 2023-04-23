@@ -1,6 +1,7 @@
 var coinSelected;
 var coinWeight;
 var totalCoins;
+var totalValue;
 
 function Calculate() {
     getHtmlValues();
@@ -14,23 +15,51 @@ function Calculate() {
     }
 
     if (total != 0) {
-        document.getElementById('total').innerHTML = 'There are ' + getDecimalNum(totalCoins) + ' coins and the total value of the coin ' + coinSelected + '€ is ' + getDecimalNum(total) + ' €';
+        document.getElementById('total').innerHTML = 'Total Coins ' + getDecimalNum(totalCoins) + ' coins, coin selected ' + coinSelected + '€ is ' + getDecimalNum(total) + ' €';
+    }
+}
+
+function CalculateGrams() {
+    console.log('dentro CalculateGrams');
+    getHtmlValues();
+    document.getElementById('total').innerHTML = '';
+    total = 0;
+
+    weight = getCoinWeight(coinSelected);
+    if (checkWeight(weight)) {
+        total = CalculateTotalGrams(weight);
+    }
+
+    if (total != 0) {
+        document.getElementById('total').innerHTML = 'Total Grams ' + total + 'grams'; 
     }
 }
 
 function getHtmlValues() {
     coinSelected = parseInt(document.getElementById('selectCoin').value) || 0;
 
-    let coinW = document.getElementById('coinWeight').value;
-    if (coinW.includes(',')) {
-        coinW = coinW.replace(',', '.');
+    let coinWeightElementId = document.getElementById('coinWeight');
+    if (coinWeightElementId) {
+        coinW = coinWeightElementId.value;
+        if (coinW.includes(',')) {
+            coinW = coinW.replace(',', '.');
+        }
+        coinWeight = parseFloat(coinW) || 0;
+
     }
 
-    coinWeight = parseFloat(coinW) || 0;
+    let valueIntroducedElementId = document.getElementById('totalValue')
+    if (valueIntroducedElementId){
+        valueIntroduced = valueIntroducedElementId.value;
+        if (valueIntroduced.includes(',')) {
+            valueIntroduced = valueIntroduced.replace(',', '.');
+        }
+        totalValue = parseFloat(valueIntroduced) || 0;
+    }
 }
 
 function getCoinWeight(coin) {
-    
+
     switch (coin) {
         case 1:
             return 2.3;
@@ -81,6 +110,12 @@ function CalculateTotalValue(weight) {
     return (totalCoins * coinSelected);
 }
 
+function CalculateTotalGrams(weight) {
+    coinSelected = coinSelected / 100;
+    totalWeight = weight * totalValue;
+    totalCoins = totalWeight / weight;
+    return (totalWeight); 
+}
 function getDecimalNum(num) {
     num = num.toFixed(3).toString().replace(/(\.\d*?[1-9])0+$/g, "$1");
     if (num % 2 == 0) {
@@ -89,8 +124,17 @@ function getDecimalNum(num) {
     return (num)
 }
 
-function UpdatePlaceHolder(selectedCoin) {
+function UpdatePlaceHolders(selectedCoin) {
     getHtmlValues;
+    console.log('Selected coin', selectedCoin);
     const input2 = document.getElementById("coinWeight");
     input2.placeholder = getCoinWeight(selectedCoin);
 }
+
+function updatePlaceholder() {
+    var selectElement = document.getElementById("selectCoin");
+    var selectedOption = selectElement.options[selectElement.selectedIndex].value;
+    UpdatePlaceHolders(parseInt(selectedOption));
+}
+
+
